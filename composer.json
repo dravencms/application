@@ -17,7 +17,12 @@
   "require": {
     "nette/application": "^3.1.4",
     "nette/di": "^3.0.9",
-    "nette/security": "^3.1.4"
+    "nette/security": "^3.1.4",
+    "bicisteadm/webloader-reload": "^3.0.0",
+    "joseki/webloader-filters": "^1.1",
+    "linkorb/jsmin-php": ">=1.0.0",
+    "scssphp/scssphp": "^v1.6.0",
+    "natxet/cssmin": "^v3.0.6"
   },
   "autoload": {
     "psr-0": {
