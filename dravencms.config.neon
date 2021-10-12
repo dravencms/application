@@ -1,0 +1,8 @@
+extensions:
+    dravencms.application: Dravencms\Base\DI\ApplicationExtension
+
+services:
+    route:
+        class: Dravencms\Routing\RouterFactory
+
+    router: @Dravencms\Routing\RouterFactory::createRouter

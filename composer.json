@@ -1,0 +1,32 @@
+{
+  "name": "dravencms/application",
+  "type": "dravencms-package",
+  "description": "DravenCMS Application",
+  "keywords": [
+    "dravencms",
+    "application"
+  ],
+  "license": [
+    "LGPL-3.0"
+  ],
+  "authors": [
+    {
+      "name": "Adam Schubert"
+    }
+  ],
+  "require": {
+    "nette/application": "^3.1.4",
+    "nette/di": "^3.0.9",
+    "nette/security": "^3.1.4"
+  },
+  "autoload": {
+    "psr-0": {
+      "Dravencms\\": "src/"
+    }
+  },
+  "extra": {
+    "dravencms": {
+      "configuration": "dravencms.config.neon"
+    }
+  }
+}
