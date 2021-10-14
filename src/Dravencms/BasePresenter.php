@@ -2,8 +2,6 @@
 
 namespace Dravencms;
 
-use Dravencms\Base\Base;
-use Dravencms\Base\ITemplate;
 use Nette\Security\IIdentity;
 use WebLoader\Nette\LoaderFactory;
 use Nette\Application\UI\Presenter;
@@ -15,9 +13,6 @@ abstract class BasePresenter extends Presenter
 {
     /** @var LoaderFactory @inject */
     public $webLoader;
-
-    /** @var Base @inject */
-    public $base;
 
     public function startup(): void
     {
@@ -36,7 +31,7 @@ abstract class BasePresenter extends Presenter
         $className = trim(str_replace($presenter . 'Presenter', '', get_class($this)), '\\');
         $exploded = explode('\\', $className);
         $moduleName = str_replace('Module', '', end($exploded));
-        $layout = $this->layout ? $this->layout : 'layout';
+        $layout = $this->getLayoutName();
         $dir = dirname($this->getReflection()->getFileName());
         $dir = is_dir("$dir/templates") ? $dir : dirname($dir);
         $list = [
@@ -50,12 +45,11 @@ abstract class BasePresenter extends Presenter
 
         $list[] = realpath(__DIR__ . "/..") . '/' . $this->getNamespace() . "Module/templates/@$layout.latte";
 
-
-        if ($found = $this->base->findTemplate($layout)) {
-            $list[] = $found->getPath();
-        }
-
         return $list;
+    }
+
+    private function getLayoutName(): string{
+        return $this->layout ? $this->layout : 'layout';
     }
 
     /**
@@ -99,13 +93,5 @@ abstract class BasePresenter extends Presenter
     public function isLoggedIn(): bool
     {
         return $this->getUser()->isLoggedIn();
-    }
-
-    /**
-     * @return \Dravencms\Base\ITemplate|null
-     */
-    public function getCurrentTemplate(): ?ITemplate
-    {
-        return $this->base->findTemplate($this->getLayout());
     }
 }
