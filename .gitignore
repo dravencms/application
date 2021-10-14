@@ -1,3 +1,2 @@
-/deploy/www/modules/*/bower_components
-/deploy/www/modules/*/*/bower_components
 /.idea
+vendor
