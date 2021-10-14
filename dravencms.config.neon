@@ -1,5 +1,5 @@
 extensions:
-    dravencms.application: Dravencms\Base\DI\ApplicationExtension
+    dravencms.application: Dravencms\Application\DI\ApplicationExtension
     webloader: WebLoader\Nette\Extension
 
 services:

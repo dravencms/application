@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Dravencms\Base\DI;
+namespace Dravencms\Application\DI;
 
 use Kdyby\Console\DI\ConsoleExtension;
 use Nette;
