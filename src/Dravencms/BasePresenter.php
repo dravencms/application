@@ -62,7 +62,8 @@ abstract class BasePresenter extends Presenter
     public function formatTemplateFiles(): array
     {
         [$module, $presenter] = Helpers::splitName($this->getName());
-        $submoduleName = end(explode(':', $module));
+        $exploded = explode(':', $module);
+        $submoduleName = end($exploded);
         $dir = dirname(static::getReflection()->getFileName());
         $dir = is_dir("$dir/templates") ? $dir : dirname($dir);
         return [
