@@ -48,8 +48,8 @@ abstract class BasePresenter extends Presenter
         return $list;
     }
 
-    private function getLayoutName(): string{
-        return $this->layout ? $this->layout : 'layout';
+    public function getLayoutName(): string {
+        return $this->getLayout() ? $this->getLayout() : 'layout';
     }
 
     /**
