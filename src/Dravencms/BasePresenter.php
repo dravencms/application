@@ -2,7 +2,6 @@
 
 namespace Dravencms;
 
-use Nette\Security\IIdentity;
 use Nette\Application\Helpers;
 use WebLoader\Nette\LoaderFactory;
 use Nette\Application\UI\Presenter;
@@ -76,29 +75,5 @@ abstract class BasePresenter extends Presenter
             "$dir/templates/$submoduleName/$presenter/$this->view.latte",
             "$dir/templates/$submoduleName/$presenter.$this->view.latte",
         ];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNamespace(): string
-    {
-        return $this->getUser()->getStorage()->getNamespace();
-    }
-
-    /**
-     * @return \Nette\Security\IIdentity|NULL
-     */
-    public function getUserEntity(): ?IIdentity
-    {
-        return $this->getUser()->getIdentity();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLoggedIn(): bool
-    {
-        return $this->getUser()->isLoggedIn();
     }
 }
