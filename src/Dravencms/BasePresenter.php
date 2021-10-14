@@ -26,12 +26,6 @@ abstract class BasePresenter extends Presenter
      */
     public function formatLayoutTemplateFiles(): array
     {
-        /*
-         * $list = [
-            "$dir/templates/$submoduleName/$presenter/@$layout.latte",
-            "$dir/templates/$submoduleName/$presenter.@$layout.latte",
-        ];
-         * */
         $layout = $this->getLayoutName();
         if (preg_match('#/|\\\\#', (string) $layout)) {
             return [$layout];
@@ -43,8 +37,8 @@ abstract class BasePresenter extends Presenter
         $dir = dirname(static::getReflection()->getFileName());
         $dir = is_dir("$dir/templates") ? $dir : dirname($dir);
         $list = [
-            "$dir/templates/$presenter/@$layout.latte",
-            "$dir/templates/$presenter.@$layout.latte",
+            "$dir/templates/$submoduleName/$presenter/@$layout.latte",
+            "$dir/templates/$submoduleName/$presenter.@$layout.latte",
         ];
         do {
             $list[] = "$dir/templates/@$layout.latte";
