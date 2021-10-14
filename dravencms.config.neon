@@ -4,9 +4,9 @@ extensions:
 
 services:
     route:
-        class: Dravencms\Routing\RouterFactory
+        class: Dravencms\Application\RouterFactory
 
-    router: @Dravencms\Routing\RouterFactory::createRouter
+    router: @Dravencms\Application\RouterFactory::createRouter
     wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
     sassFilter: WebLoader\Filter\ScssFilter
     jwlCssMinFilter: Joseki\Webloader\CssMinFilter
