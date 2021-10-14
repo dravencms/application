@@ -8,7 +8,7 @@ services:
 
     router: @Dravencms\Application\RouterFactory::createRouter
     wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
-    sassFilter: WebLoader\Filter\ScssFilter
+    sassFilter: Dravencms\Application\Webloader\Filter\ScssFilter
     jwlCssMinFilter: Joseki\Webloader\CssMinFilter
 
 parameters:

@@ -3,6 +3,7 @@
 namespace Dravencms;
 
 use Nette\Security\IIdentity;
+use Nette\Application\Helpers;
 use WebLoader\Nette\LoaderFactory;
 use Nette\Application\UI\Presenter;
 
@@ -26,24 +27,33 @@ abstract class BasePresenter extends Presenter
      */
     public function formatLayoutTemplateFiles(): array
     {
-        $name = $this->getName();
-        $presenter = substr($name, strrpos(':' . $name, ':'));
-        $className = trim(str_replace($presenter . 'Presenter', '', get_class($this)), '\\');
-        $exploded = explode('\\', $className);
-        $moduleName = str_replace('Module', '', end($exploded));
+        /*
+         * $list = [
+            "$dir/templates/$submoduleName/$presenter/@$layout.latte",
+            "$dir/templates/$submoduleName/$presenter.@$layout.latte",
+        ];
+         * */
         $layout = $this->getLayoutName();
-        $dir = dirname($this->getReflection()->getFileName());
+        if (preg_match('#/|\\\\#', (string) $layout)) {
+            return [$layout];
+        }
+        [$module, $presenter] = Helpers::splitName($this->getName());
+        $exploded = explode(':', $module);
+        $submoduleName = end($exploded);
+        $moduleName = current($exploded);
+        $dir = dirname(static::getReflection()->getFileName());
         $dir = is_dir("$dir/templates") ? $dir : dirname($dir);
         $list = [
-            "$dir/templates/$moduleName/$presenter/@$layout.latte",
-            "$dir/templates/$moduleName/$presenter.@$layout.latte",
+            "$dir/templates/$presenter/@$layout.latte",
+            "$dir/templates/$presenter.@$layout.latte",
         ];
         do {
             $list[] = "$dir/templates/@$layout.latte";
             $dir = dirname($dir);
-        } while ($dir && ($name = substr($name, 0, strrpos($name, ':'))));
+        } while ($dir && $module && ([$module] = Helpers::splitName($module)));
 
-        $list[] = realpath(__DIR__ . "/..") . '/' . $this->getNamespace() . "Module/templates/@$layout.latte";
+
+        $list[] = realpath(__DIR__ . "/..") . '/' . $moduleName . "Module/templates/@$layout.latte";
 
         return $list;
     }
@@ -58,16 +68,13 @@ abstract class BasePresenter extends Presenter
      */
     public function formatTemplateFiles(): array
     {
-        $name = $this->getName();
-        $presenter = substr($name, strrpos(':' . $name, ':'));
-        $className = trim(str_replace($presenter . 'Presenter', '', get_class($this)), '\\');
-        $exploded = explode('\\', $className);
-        $moduleName = str_replace('Module', '', end($exploded));
-        $dir = dirname($this->getReflection()->getFileName());
+        [$module, $presenter] = Helpers::splitName($this->getName());
+        $submoduleName = end(explode(':', $module));
+        $dir = dirname(static::getReflection()->getFileName());
         $dir = is_dir("$dir/templates") ? $dir : dirname($dir);
         return [
-            "$dir/templates/$moduleName/$presenter/$this->view.latte",
-            "$dir/templates/$moduleName/$presenter.$this->view.latte",
+            "$dir/templates/$submoduleName/$presenter/$this->view.latte",
+            "$dir/templates/$submoduleName/$presenter.$this->view.latte",
         ];
     }
 
