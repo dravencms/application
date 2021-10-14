@@ -16,17 +16,7 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
 
     public function loadConfiguration()
     {
-        $builder = $this->getContainerBuilder();
-
-
         $this->loadComponents();
-    }
-
-    public function beforeCompile()
-    {
-        $builder = $this->getContainerBuilder();
-        $cms = $builder->getDefinition($this->prefix('base'));
-
     }
 
 
@@ -34,10 +24,9 @@ class ApplicationExtension extends Nette\DI\CompilerExtension
     {
         $builder = $this->getContainerBuilder();
         foreach ($this->loadFromFile(__DIR__ . '/components.neon') as $i => $command) {
-            $cli = $builder->addDefinition($this->prefix('components.' . $i))
-                ->setInject(FALSE); // lazy injects
+            $factoryDefinition = $builder->addFactoryDefinition($this->prefix('components.' . $i));
             if (is_string($command)) {
-                $cli->setImplement($command);
+                $factoryDefinition->setImplement($command);
             } else {
                 throw new \InvalidArgumentException;
             }
