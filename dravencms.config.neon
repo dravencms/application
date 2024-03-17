@@ -1,26 +1,11 @@
 extensions:
     dravencms.application: Dravencms\Application\DI\ApplicationExtension
-    webloader: WebLoader\Nette\Extension
 
 services:
     route:
         class: Dravencms\Application\RouterFactory
 
     router: @Dravencms\Application\RouterFactory::createRouter
-    wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
-    sassFilter: Dravencms\Application\Webloader\Filter\ScssFilter
-    jwlCssMinFilter: Joseki\Webloader\CssMinFilter
-
-parameters:
-  webloaderDir: %appDir%/../www/assets
-
-webloader:
-  cssDefaults:
-    sourceDir: %webloaderDir%
-    tempDir: %wwwDir%/webtemp
-  jsDefaults:
-    sourceDir: %webloaderDir%
-    tempDir: %wwwDir%/webtemp
 
 application:
     errorPresenter: Front:Error
