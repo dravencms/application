@@ -32,7 +32,7 @@ class RouterFactory
     {
         $router = new RouteList();
         foreach ($this->routeFactories AS $routeFactory) {
-            $router[] = $routeFactory->createRouter();
+            $router->add($routeFactory->createRouter());
         }
 
         return $router;
