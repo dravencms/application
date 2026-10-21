@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: sadam
@@ -39,7 +39,7 @@ class ScssFilter
         $file = (string) $file;
 
         if (pathinfo($file, PATHINFO_EXTENSION) === 'scss') {
-            $this->getScssC()->setImportPaths(['', pathinfo($file, PATHINFO_DIRNAME) . '/']);
+            $this->getScssC()->setImportPaths([pathinfo($file, PATHINFO_DIRNAME)]);
             return $this->getScssC()->compileString($code)->getCss();
         }
 

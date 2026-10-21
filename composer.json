@@ -17,8 +17,9 @@
   "require": {
     "nette/application": "^3.1.4",
     "nette/di": "^3.0.9",
-    "scssphp/scssphp": "^v1.6.0",
-    "dravencms/webloader": ">=0.0.1"
+    "scssphp/scssphp": "^2.1",
+    "dravencms/webloader": ">=0.0.1",
+    "php": "^8.4"
   },
   "autoload": {
     "psr-0": {
